@@ -31,7 +31,7 @@ Feature: Authentication
       | Country       | Singapore         |
       | State         | Singapore State   |
       | City          | Singapore City    |
-      | Zipcode       |             10000 |
+      | Zipcode       | 10000             |
       | Mobile Number | (+84) 958940985   |
     And I click 'Create Account' button
     Then The 'ACCOUNT CREATED!' text should be displayed

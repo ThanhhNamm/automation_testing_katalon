@@ -1,3 +1,4 @@
+package common
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
 import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
@@ -20,7 +21,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
 
 import org.openqa.selenium.WebElement
-import org.testng.Assert
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.By
 
@@ -44,42 +44,17 @@ import cucumber.api.java.en.When
 
 
 
-class authentication {
-
-	@Given("I access to automation exercise system")
-	def access_to_system() {
-		WebUI.openBrowser(GlobalVariable.BASE_URL)
-		WebUI.maximizeWindow()
+class common {
+	@When("I click {string} button")
+	def click_button(String textBtn) {
+		WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/button_GeneralText',['param':textBtn]), GlobalVariable.MIN_TIME_FOR_WAIT)
+		WebUI.click(findTestObject('Object Repository/000_Common/button_GeneralText',['param':textBtn]))
 	}
-
-	@When("The {string} page should be displayed")
-	def verify_page_displayed(String pageName) {
-		switch(pageName.toUpperCase()) {
-			case 'HOME':
-				WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/div_GetById',['param':'slider-carousel']), GlobalVariable.MIN_TIME_FOR_WAIT)
-				WebUI.verifyElementVisible(findTestObject('Object Repository/000_Common/div_GetById',['param':'slider-carousel']))
-				break
-
-			case 'SIGNUP / LOGIN':
-				WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/h2_GeneralText',['param':'New User Signup!']), GlobalVariable.MIN_TIME_FOR_WAIT)
-				WebUI.verifyElementVisible(findTestObject('Object Repository/000_Common/h2_GeneralText',['param':'New User Signup!']))
-				break
-
-			default:
-				throw new IllegalStateException ("Page name is invalid!")
-		}
-	}
-
-	@Then("The {string} menu's option should be focused")
-	def verify_menu_option_focused(String menuOption) {
-		WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/a_GeneralText',['param':menuOption]), GlobalVariable.MIN_TIME_FOR_WAIT)
-		String attributeText = WebUI.getAttribute(findTestObject('Object Repository/000_Common/a_GeneralText',['param':menuOption]), 'style')
-		Assert.assertTrue(attributeText.contains('orange'), "Menu's option is NOT focused")
-	}
-
-	@When("I click {string} menu's option")
-	def click_menu_option(String menuOption) {
-		WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/a_GeneralText',['param':menuOption]), GlobalVariable.MIN_TIME_FOR_WAIT)
-		WebUI.click(findTestObject('Object Repository/000_Common/a_GeneralText',['param':menuOption]))
+	
+	
+	@Then("The {string} text should be displayed")
+	def verify_message_displayed(String message) {
+		WebUI.waitForElementVisible(findTestObject('Object Repository/000_Common/b_GeneralText',['param':textBtn]), GlobalVariable.MIN_TIME_FOR_WAIT)
+		WebUI.click(findTestObject('Object Repository/000_Common/button_GeneralText',['param':textBtn]))
 	}
 }
